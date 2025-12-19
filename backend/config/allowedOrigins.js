@@ -4,9 +4,9 @@ const allowedOrigins = [
     'http://localhost:5173',    // Vite dev server (puerto por defecto)
     'http://localhost:3000',    // React dev server alternativo
     'http://localhost:4173',    // Vite preview server
-    // AWS Elastic Beanstalk - patrón flexible para cualquier region/env
-    /https?:\/\/.*\.elasticbeanstalk\.com$/,
-    process.env.AWS_EB_URL      // Variable de entorno específica
+    // Render deployment URL (será tu URL de Render)
+    process.env.RENDER_EXTERNAL_URL,     // Render automáticamente pone esta variable
+    'https://scheduly-hrwy.onrender.com'        // Reemplaza con tu URL real de Render
 ];
 
 module.exports = allowedOrigins;
