@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express'); // Framework web de Node.js
 const app = express(); // Crea instancia de Express
 const path = require('path'); // Para manejo de rutas de archivos
+const fs = require('fs'); // Para verificación de archivos
 const { logger } = require('./middleware/logEvents'); // Middleware de logging
 const errorHandler = require('./middleware/errorHandler'); // Middleware de manejo de errores
 const cors = require('cors'); // Middleware para CORS
@@ -39,15 +40,7 @@ app.use(cookieParser());
 
 
 // Sirve archivos estáticos del React build
-// Catch-all route to serve index.html for any unmatched routes
-app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, 'dist', 'index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).send('index.html not found');
-  }
-});
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Rutas públicas (no requieren autenticación)
 app.use('/', require('./routes/root')); // Página principal
@@ -79,7 +72,13 @@ app.get('*', (req, res) => {
     }
     
     // Para cualquier otra ruta, servir el index.html de React
-    res.sendFile(path.join(__dirname, '../scheduly-project/dist', 'index.html'));
+    const indexPath = path.join(__dirname, 'dist', 'index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        console.error('index.html not found at:', indexPath);
+        res.status(404).send('index.html not found');
+    }
 });
 
 // Inicia el servidor solo después de conectar a MongoDB
