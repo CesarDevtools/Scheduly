@@ -1,5 +1,7 @@
 // Configuración base de la API
-const API_BASE_URL = 'http://localhost:3500';
+const API_BASE_URL = import.meta.env.PROD 
+  ? window.location.origin  // En producción usa el mismo dominio
+  : 'http://localhost:3500'; // En desarrollo usa localhost
 
 // Función helper para hacer peticiones con autenticación
 const apiRequest = async (endpoint, options = {}) => {
