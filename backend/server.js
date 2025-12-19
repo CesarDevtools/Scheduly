@@ -41,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
 // Sirve archivos estáticos del React build
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../scheduly-project/dist')));
 
 // Rutas públicas (no requieren autenticación)
 app.use('/', require('./routes/root')); // Página principal
@@ -73,7 +73,7 @@ app.get('*', (req, res) => {
     }
     
     // Para cualquier otra ruta, servir el index.html de React
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../scheduly-project/dist', 'index.html'));
 });
 
 // Inicia el servidor solo después de conectar a MongoDB
