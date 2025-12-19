@@ -38,7 +38,6 @@ app.use(express.json());
 // Middleware para parsear cookies
 app.use(cookieParser());
 
-
 // Sirve archivos estáticos del React build
 app.use(express.static(path.join(__dirname, 'dist')));
 
@@ -62,7 +61,7 @@ app.get('/positions', (req, res) => {
 app.use(errorHandler); // Middleware de manejo de errores (debe ir al final)
 
 // Manejo de todas las rutas para React Router (SPA) - DEBE IR AL FINAL
-app.get('*', (req, res) => {
+app.get('/*path', (req, res) => {
     // Si es una ruta de API, devolver 404 JSON
     if (req.originalUrl.startsWith('/api') || req.originalUrl.startsWith('/auth') || 
         req.originalUrl.startsWith('/refresh') || req.originalUrl.startsWith('/logout') ||
