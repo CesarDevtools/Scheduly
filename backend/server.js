@@ -37,11 +37,17 @@ app.use(express.json());
 // Middleware para parsear cookies
 app.use(cookieParser());
 
-// Sirve archivos estáticos desde la carpeta public
-app.use(express.static(path.join(__dirname, '/public')));
 
 // Sirve archivos estáticos del React build
-app.use(express.static(path.join(__dirname, '../scheduly-project/dist')));
+// Catch-all route to serve index.html for any unmatched routes
+app.get('*', (req, res) => {
+  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('index.html not found');
+  }
+});
 
 // Rutas públicas (no requieren autenticación)
 app.use('/', require('./routes/root')); // Página principal

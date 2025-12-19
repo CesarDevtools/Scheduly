@@ -11,15 +11,6 @@ lerna-debug.log*
 node_modules/
 */node_modules/
 
-# Build outputs
-scheduly-project/dist/
-dist-ssr/
-scheduly-project/build/
-*.local
-
-# Backend dist should be included for deployment
-!backend/dist/
-
 # Environment variables - CRITICAL SECURITY
 .env
 .env.*
